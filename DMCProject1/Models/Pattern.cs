@@ -6,8 +6,9 @@ namespace DMCProject1.Models
 {
     public class Pattern
     {
-        public int PatternID { get; set; }
-        public int UserID { get; set; }
+        [Key]
+        public int PatternId { get; set; }
+        public int UserId { get; set; }
         public string Name { get; set; }
     }
 }

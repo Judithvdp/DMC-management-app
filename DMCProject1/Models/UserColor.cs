@@ -6,9 +6,10 @@ namespace DMCProject1.Models
 {
     public class UserColor
     {
-        public int ColorID { get; set; }
-        public int DmcID { get; set; }
-        public int UserID { get; set; }
+        [Key]
+        public int ColorId { get; set; }
+        public int DmcId { get; set; }
+        public int UserId { get; set; }
         public int Amount { get; set; }
     }
 }

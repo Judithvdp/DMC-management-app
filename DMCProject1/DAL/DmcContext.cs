@@ -2,12 +2,12 @@ using DMCProject1.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace DMC_MVC.DAL
+namespace DMCProject1.DAL
 {
     public class DmcContext : DbContext
     {
 
-        public DmcContext() : base("SchoolContext")
+        public DmcContext() : base("DmcContext")
         {
         }
 

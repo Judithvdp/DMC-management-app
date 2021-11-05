@@ -6,9 +6,9 @@ namespace DMCProject1.Models
 {
     public class PatternColor
     {
-        public int PCID { get; set; }
-        public int PatternID { get; set; }
-        public int DmcID { get; set; }
+        public int PCId { get; set; }
+        public int PatternId { get; set; }
+        public int DmcId { get; set; }
         public int NumStitches { get; set; }
     }
 }
