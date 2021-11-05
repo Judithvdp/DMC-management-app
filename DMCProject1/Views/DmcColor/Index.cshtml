@@ -1,0 +1,35 @@
+﻿@model IEnumerable<DMCProject1.Models.DmcColor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DmcId)
+            @Html.DisplayNameFor(model => model.Color)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DmcId)
+            @Html.DisplayFor(modelItem => item.Color)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DmcId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DmcId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DmcId })
+        </td>
+    </tr>
+}
+
+</table>
