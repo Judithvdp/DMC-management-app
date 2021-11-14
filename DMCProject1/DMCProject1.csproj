@@ -128,6 +128,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DmcColorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PatternColorController.cs" />
+    <Compile Include="Controllers\PatternController.cs" />
     <Compile Include="Controllers\UserColorController.cs" />
     <Compile Include="DAL\DmcContext.cs" />
     <Compile Include="DAL\DmcInitializer.cs" />
@@ -136,8 +138,8 @@
     </Compile>
     <Compile Include="Models\DmcColor.cs" />
     <Compile Include="Models\ErrorViewModel.cs" />
-    <Compile Include="Models\PatternColor.cs" />
     <Compile Include="Models\Pattern.cs" />
+    <Compile Include="Models\PatternColor.cs" />
     <Compile Include="Models\UserColor.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -188,6 +190,12 @@
     <Content Include="Views\DmcColor\Details.cshtml" />
     <Content Include="Views\DmcColor\Edit.cshtml" />
     <Content Include="Views\DmcColor\Index.cshtml" />
+    <Content Include="Views\Pattern\Create.cshtml" />
+    <Content Include="Views\Pattern\Delete.cshtml" />
+    <Content Include="Views\Pattern\Details.cshtml" />
+    <Content Include="Views\Pattern\Edit.cshtml" />
+    <Content Include="Views\Pattern\Index.cshtml" />
+    <Content Include="Views\PatternColor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
