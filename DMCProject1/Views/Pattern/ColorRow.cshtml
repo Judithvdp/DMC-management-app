@@ -1,0 +1,19 @@
+﻿
+@model DMCProject1.Models.PatternColor
+
+@using (Html.BeginCollectionItem("Colors"))
+{
+    <tr>
+        <td>
+            @Html.HiddenFor(m => m.PCId)
+            @Html.TextBoxFor(m => m.DmcId)
+            @Html.TextBoxFor(m => m.NumStitches)
+        </td>
+
+        <td>
+            <span class="glyphicon glyphicon-trash action-icon" data-action="removeItem"></span>
+        </td>
+
+
+    </tr>
+}

@@ -19,5 +19,7 @@ namespace DMCProject1.DAL
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
+        public System.Data.Entity.DbSet<DMCProject1.Models.PatternColor> PatternColors { get; set; }
     }
 }

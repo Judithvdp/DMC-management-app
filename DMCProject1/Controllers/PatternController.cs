@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using DMCProject1.DAL;
 using DMCProject1.Models;
+using DMCProject1.Helpers;
 
 namespace DMCProject1.Controllers
 {
@@ -53,7 +54,7 @@ namespace DMCProject1.Controllers
             {
                 db.Patterns.Add(pattern);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "Pattern", new { id = pattern.PatternId });
             }
 
             return View(pattern);
@@ -66,12 +67,19 @@ namespace DMCProject1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pattern pattern = db.Patterns.Find(id);
-            if (pattern == null)
+            PatternCollection patternCollection = new PatternCollection();
+            patternCollection.pattern = db.Patterns.Find(id);
+            patternCollection.colors = db.PatternColors.Where(x => x.PatternId == id).ToList();
+            if (patternCollection == null)
             {
                 return HttpNotFound();
             }
-            return View(pattern);
+            return View(patternCollection);
+        }
+        [HttpPost]
+        public ActionResult AddColor()
+        {
+            return PartialView("ColorRow", new PatternColor());
         }
 
         // POST: Pattern/Edit/5

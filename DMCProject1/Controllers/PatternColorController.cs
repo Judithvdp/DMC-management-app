@@ -1,89 +1,128 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using DMCProject1.DAL;
+using DMCProject1.Models;
 
 namespace DMCProject1.Controllers
 {
     public class PatternColorController : Controller
     {
-        // GET: PatternColor
+        private DmcContext db = new DmcContext();
+
+        // GET: Pattern
         public ActionResult Index()
         {
-            return View();
+            return View(db.PatternColors.ToList());
         }
 
-        // GET: PatternColor/Details/5
-        public ActionResult Details(int id)
+        // GET: Pattern/Details/5
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PatternColor patternColor = db.PatternColors.Find(id);
+            if (patternColor == null)
+            {
+                return HttpNotFound();
+            }
+            return View(patternColor);
         }
 
-        // GET: PatternColor/Create
+        // GET: Pattern/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: PatternColor/Create
+        // POST: Pattern/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "PCId,PatternID,DmcId,Numstitches")] PatternColor patternColor)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                db.PatternColors.Add(patternColor);
+                db.SaveChanges();
+                return RedirectToAction("Create", "PatternColor");
+            }
 
+            return View(patternColor);
+        }
+
+        // GET: Pattern/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PatternColor patternColor = db.PatternColors.Find(id);
+            if (patternColor == null)
+            {
+                return HttpNotFound();
+            }
+            return View(patternColor);
+        }
+
+        // POST: Pattern/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "PCId,PatternID,DmcId,Numstitches")] PatternColor patternColor)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(patternColor).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(patternColor);
         }
 
-        // GET: PatternColor/Edit/5
-        public ActionResult Edit(int id)
+        // GET: Pattern/Delete/5
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PatternColor patternColor = db.PatternColors.Find(id);
+            if (patternColor == null)
+            {
+                return HttpNotFound();
+            }
+            return View(patternColor);
         }
 
-        // POST: PatternColor/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        // POST: Pattern/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            PatternColor patternColor = db.PatternColors.Find(id);
+            db.PatternColors.Remove(patternColor);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
-        // GET: PatternColor/Delete/5
-        public ActionResult Delete(int id)
+        protected override void Dispose(bool disposing)
         {
-            return View();
-        }
-
-        // POST: PatternColor/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
+            if (disposing)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                db.Dispose();
             }
-            catch
-            {
-                return View();
-            }
+            base.Dispose(disposing);
         }
     }
 }

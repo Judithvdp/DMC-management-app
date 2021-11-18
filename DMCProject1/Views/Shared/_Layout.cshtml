@@ -6,6 +6,8 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <script src="@Url.Content("~/Scripts/jquery-3.4.1.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/modernizr-2.8.3.js")"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -24,6 +26,7 @@
                     <li>@Html.ActionLink("DMC Colors", "Index", "DmcColor")</li>
                     <li>@Html.ActionLink("User Colors", "Index", "UserColor")</li>
                     <li>@Html.ActionLink("Patterns", "Index", "Pattern")</li>
+                    <li>@Html.ActionLink("Pattern Colors", "Index", "PatternColor")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
