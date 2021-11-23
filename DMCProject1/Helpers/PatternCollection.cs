@@ -8,7 +8,8 @@ namespace DMCProject1.Helpers
 {
     public class PatternCollection
     {
-        public Pattern pattern;
-        public List<PatternColor> colors;
+
+        public Pattern pattern { get; set; }
+        public List<PatternColor> colors { get; set; }
     }
 }

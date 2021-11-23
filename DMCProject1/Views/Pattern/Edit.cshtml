@@ -6,7 +6,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Pattern", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     
@@ -24,23 +24,26 @@
         </div>
     </div>
 
-
-    @*<div class="form-group">
-           @Html.LabelFor(model => model.colors.DmcId, htmlAttributes: new { @class = "control-label col-md-2" })
-           <div class="col-md-10">
-               @Html.EditorFor(model => model.colors.DmcId, new { htmlAttributes = new { @class = "form-control" } })
-               @Html.ValidationMessageFor(model => model.colors.DmcId, "", new { @class = "text-danger" })
-           </div>
-        <div> *@
-
-    <table id="colors">
-        <tbody>
-            @foreach (var color in Model.colors)
-            {
-                @Html.Partial("ColorRow", color)
-            }
-        </tbody>
-    </table>
+    <div class="form-group">
+        <table id="colors">
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.Label("DMC ID")
+                    </td>
+                    <td>
+                        @Html.Label("Number of Stitches")
+                    </td>
+                </tr>
+                        @foreach (var color in Model.colors)
+                        {
+                            
+                    @Html.Partial("ColorRow", color)
+                            
+                        }
+                </tbody>
+        </table>
+    </div>
 
     <button type="button" id="addColor">Add Color</button>
 
@@ -50,11 +53,33 @@
                 type: "POST",
                 url: '@Url.Action("AddColor", "Pattern")',
                 success: function (partialView) {
-                    $('#colors> tbody:last-child').append(partialView);
+                    $('#colors> tbody:last-child').append("<tr>" + partialView + "</tr>");
                 }
             });
         });
     </script>
+
+    @*
+        <script>
+            $('body').on("click", '*[data-action="removeItem"]', function (e) {
+                e.stopPropagation();
+                var btn = $(this);
+                var row = btn.closest('tr');
+                var firstCell = $(row.find('td')[0]);
+                var checkBox = firstCell.find('*[data-is-deleted]');
+                var checkBoxVal = checkBox.val();
+
+                if (checkBoxVal === 'False' || checkBox.val() === 'false') {
+                    checkBox.val('true');
+                    row.find('td').find('input, textarea, select').attr('readonly', 'readonly');
+                } else {
+                    checkBox.val('false');
+                    row.find('td').find('input, textarea, select').attr("readonly", false);
+                }
+
+            });
+        </script>
+    *@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

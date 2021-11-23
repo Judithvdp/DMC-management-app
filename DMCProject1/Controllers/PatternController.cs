@@ -87,15 +87,28 @@ namespace DMCProject1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PatternId,UserId,Name")] Pattern pattern)
+        public ActionResult Edit(PatternCollection patternCollection)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(pattern).State = EntityState.Modified;
+                db.Entry(patternCollection.pattern).State = EntityState.Modified;
+                
+                foreach (PatternColor element in patternCollection.colors)
+                {
+                    int PCId = element.PCId;
+                    int Pid = patternCollection.pattern.PatternId;
+                    element.PatternId = Pid;
+                    if (db.PatternColors.Find(PCId) != null)
+                    {
+                        db.Entry(element).State = EntityState.Modified;
+                    }
+                    else db.PatternColors.Add(element);
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(pattern);
+            
+            return RedirectToAction("Index");
         }
 
         // GET: Pattern/Delete/5
