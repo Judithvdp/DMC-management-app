@@ -13,8 +13,8 @@ namespace DMCProject1.DAL
         {
             var DmcColors = new List<DmcColor>
             {
-                new DmcColor{DmcId=1, Color="red"},
-                new DmcColor{DmcId=310,Color="black"}
+                new DmcColor{DmcId=1, Name="red", Red=1, Blue=0, Green=0},
+                new DmcColor{DmcId=310,Name="black", Red=1, Blue=1, Green=1}
             };
 
             DmcColors.ForEach(s => context.DmcColors.Add(s));
