@@ -9,16 +9,13 @@
 <table class="table">
     <tr>
         <th>
-                @Html.DisplayNameFor(model => model.DmcId)
-            <td>
-                @Html.DisplayNameFor(model => model.Name)
-            </td>
-            <td>
-                @Html.DisplayName("Color")
-            </td>
-            <td>
-
-            </td>
+            @Html.DisplayNameFor(model => model.DmcId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayName("Color")
         </th>
     </tr>
 
@@ -30,9 +27,17 @@
     <td>
         @Html.DisplayFor(modelItem => item.Name)
     </td>
-    <td>
+    <td style="background-color:@item.HexaDecimal"
+        width="100">
+        @Html.DisplayFor(modelItem => item.HexaDecimal)
+
+        @*Html.color=@item.getHtmlColorString()>
+        @*Html.(model => item.HexaDecimal)
+        @*Html.Displaystyle='color:@item.HexaDecimal'
+        @*Html.DisplayFor(color:item.HexaDecimal)
+
         @*Still need to make a colorsquare here*@
-        @Html.DisplayFor(modelItem => item.Blue)
+
     </td>
     <td>
         @Html.ActionLink("Details", "Details", new { id = item.DmcId })

@@ -17,7 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Amount)
         </th>
-        <th></th>
+        <th> 
+            @Html.DisplayName("Color")
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -27,6 +29,10 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td style="background-color:@item.HexaDecimal">
+            @Html.DisplayFor(modelItem => item.HexaDecimal)
+
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ColorId }) |
