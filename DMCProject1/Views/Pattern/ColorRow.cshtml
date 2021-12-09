@@ -1,19 +1,45 @@
 ﻿
 @model DMCProject1.Models.PatternColor
 
-@using (Html.BeginCollectionItem("Colors"))
+@using (Html.BeginCollectionItem("colors"))
 {
-    <tr>
-        <td>
-            @Html.HiddenFor(m => m.PCId)
-            @Html.TextBoxFor(m => m.DmcId)
-            @Html.TextBoxFor(m => m.NumStitches)
-        </td>
+<tr>
+    <td>
+        @Html.HiddenFor(m => m.PCId)
+        @Html.TextBoxFor(m => m.DmcId)
+    </td>
+    <td>
+        @Html.TextBoxFor(m => m.NumStitches)
+    </td>
+    @*<td style="background-color:@item.HexaDecimal">*@
+<td>
+        <button type="button" id="removeItem">Delete</button>
+    </td>
 
-        <td>
-            <span class="glyphicon glyphicon-trash action-icon" data-action="removeItem"></span>
-        </td>
 
 
-    </tr>
+</tr>
+
+    <script>
+        $('body').on('click', '*[data-action="removeItem"]', function (e) {
+            $(this).closest('tr').remove()
+        })
+           @* $('body').on("click", '*[data-action="removeItem"]', function (e) {
+                e.stopPropagation();
+                var btn = $(this);
+                var row = btn.closest('tr');
+                var firstCell = $(row.find('td')[0]);
+                var checkBox = firstCell.find('*[data-is-deleted]');
+                var checkBoxVal = checkBox.val();
+
+                if (checkBoxVal === 'False' || checkBox.val() === 'false') {
+                    checkBox.val('true');
+                    row.find('td').find('input, textarea, select').attr('readonly', 'readonly');
+                } else {
+                    checkBox.val('false');
+                    row.find('td').find('input, textarea, select').attr("readonly", false);
+                }
+
+            });*@
+        </script>
 }
