@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using DMCProject1.DAL;
 using DMCProject1.Models;
+using System.Dynamic;
+using DMCProject1.Helpers;
 
 namespace DMCProject1.Controllers
 {
@@ -18,7 +20,28 @@ namespace DMCProject1.Controllers
         // GET: UserColors
         public ActionResult Index()
         {
-            return View(db.UserColors.ToList());
+            List<ColorCollection> colorCollections = new List<ColorCollection>();
+
+            List<UserColor> userColors = new List<UserColor>();
+            userColors = db.UserColors.ToList();
+            foreach (UserColor item in userColors)
+            {
+                ColorCollection color = new ColorCollection();
+                color.ColorId = item.ColorId;
+                color.DmcId = item.DmcId;
+                color.UserId = item.UserId;
+                color.Amount = item.Amount;
+
+                DmcColor dmcColor = db.DmcColors.Where(d => d.DmcId == item.DmcId).FirstOrDefault();
+                if (dmcColor != null)
+                {
+                    color.HexaDecimal = dmcColor.HexaDecimal;
+                }
+
+                colorCollections.Add(color);
+            }
+            
+            return View(colorCollections);
         }
 
         // GET: UserColors/Details/5

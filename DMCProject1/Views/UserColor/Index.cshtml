@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DMCProject1.Models.UserColor>
+﻿@model IEnumerable<DMCProject1.Helpers.ColorCollection>
 
 @{
     ViewBag.Title = "Index";
@@ -30,6 +30,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Amount)
         </td>
+        @*how to add object from foreign key model here?*@
         <td style="background-color:@item.HexaDecimal">
             @Html.DisplayFor(modelItem => item.HexaDecimal)
 
