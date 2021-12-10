@@ -25,6 +25,31 @@ namespace DMCProject1.Controllers
         // GET: Pattern/Details/5
         public ActionResult Details(int? id)
         {
+            List<PatternColorCollection> colorCollections = new List<PatternColorCollection>();
+
+            List<PatternColor> patternColors = new List<PatternColor>();
+            patternColors = db.PatternColors.Where(e => e.PatternId == id).ToList();
+            foreach (PatternColor item in patternColors)
+            {
+                PatternColorCollection color = new PatternColorCollection();
+                color.PCId = item.PCId;
+                color.DmcId = item.DmcId;
+                color.PatternId = item.PatternId;
+                color.NumStitches = item.NumStitches;
+
+                DmcColor dmcColor = db.DmcColors.Where(d => d.DmcId == item.DmcId).FirstOrDefault();
+                if (dmcColor != null)
+                {
+                    color.HexaDecimal = dmcColor.HexaDecimal;
+                }
+
+                colorCollections.Add(color);
+            }
+
+            return View(colorCollections);
+        }
+        /*public ActionResult Details(int? id)
+        {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -35,7 +60,7 @@ namespace DMCProject1.Controllers
                 return HttpNotFound();
             }
             return View(pattern);
-        }
+        } */
 
         // GET: Pattern/Create
         public ActionResult Create()

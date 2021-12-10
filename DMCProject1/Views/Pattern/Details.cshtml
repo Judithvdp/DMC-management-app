@@ -1,4 +1,4 @@
-﻿@model DMCProject1.Models.Pattern
+﻿@model IEnumerable<DMCProject1.Helpers.PatternColorCollection>
 
 @{
     ViewBag.Title = "Details";
@@ -10,25 +10,47 @@
     <h4>Pattern</h4>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.UserId)
+            @Html.DisplayName("Pattern Name")
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
+            @* Why doesn't this work?!*@
+           @*@Html.DisplayFor(model => model.Name) *@
         </dd>
 
     </dl>
+    <table>
+        <tr>
+            <th width="200">
+                @Html.DisplayNameFor(model => model.DmcId)
+            </th>
+            <th width="200">
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th width="100">
+                @Html.DisplayName("Color")
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        { <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DmcId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td style="background-color:@item.HexaDecimal"
+                    width="100">
+                    @Html.DisplayFor(modelItem => item.HexaDecimal)
+                </td>
+            </tr>
+        }
+        </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PatternId }) |
+    @* @Html.ActionLink("Edit", "Edit", new { id = Model.PatternId }) | *@
     @Html.ActionLink("Back to List", "Index")
 </p>
