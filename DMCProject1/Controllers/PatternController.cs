@@ -125,7 +125,7 @@ namespace DMCProject1.Controllers
                     element.PatternId = Pid;
                     if (db.PatternColors.Find(PCId) != null)
                     {
-                        db.Entry(element).State = EntityState.Modified;
+                        db.Entry(db.PatternColors.Find(PCId)).State = EntityState.Modified;
                     }
                     else db.PatternColors.Add(element);
                 }
