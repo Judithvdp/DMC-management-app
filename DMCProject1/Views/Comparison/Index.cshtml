@@ -1,0 +1,32 @@
+﻿@model DMCProject1.Helpers.ComparisonIndexViewmodel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+   <h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @*Html.DisplayNameFor(model => model.Patterns.Name)*@
+        </th>
+        <th></th>
+    </tr>
+</table>
+    @using (Html.BeginForm("Comparison", "Comparison"))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.DropDownListFor(m => m.PatternId, new SelectList(Model.Patterns, "PatternId", "Name"), "Select Pattern")
+
+
+        <input type="submit" value="Compare" onclick="window.location.href=https://localhost:44339/Comparison/Comparison"/>  
+    }
+
+
+    
