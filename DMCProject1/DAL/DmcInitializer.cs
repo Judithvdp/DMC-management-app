@@ -5,19 +5,47 @@ using System.Web;
 using System.Data.Entity;
 using DMCProject1.Models;
 
+
 namespace DMCProject1.DAL
 {
     public class DmcInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<DmcContext>
     {
         protected override void Seed(DmcContext context)
         {
-            var DmcColors = new List<DmcColor>
+            var DmcColors = new List<DmcColor>();
+
+            
+            foreach (string line in System.IO.File.ReadLines(@"C:\Users\judit\source\repos\DMCProject1\DMCProject1\Data\DMC.txt"))
             {
-                new DmcColor{DmcId=1, Name="red", HexaDecimal="#FF0000"},
+                int dmcId;
+                string hexadecimal;
+                string name; string[] seperate = line.Split(' ');
+                int x = seperate.Count();
+                
+
+                // TODO: still need to make exceptionf for ECRU, BLANC etc.
+                if (!Int32.TryParse(seperate[0], out dmcId))
+                {
+                    continue;
+                }
+                hexadecimal = seperate[1];
+
+                name = "";
+                for(int i = 2; i < x; i++)
+                {
+                    name = name + " " + seperate[i];
+                }
+
+                DmcColors.Add(new DmcColor { DmcId = dmcId, Name = name, HexaDecimal = hexadecimal });
+            }
+            /*{
+                
+                
+                /*new DmcColor{DmcId=1, Name="red", HexaDecimal="#FF0000"},
                 new DmcColor{DmcId=310,Name="black", HexaDecimal="#000000"},
                 new DmcColor{DmcId=100,Name="Pink", HexaDecimal="#FFC0CB"},
                 new DmcColor{DmcId=780,Name="blue", HexaDecimal="#0000FF"}
-            };
+            };*/
 
             DmcColors.ForEach(s => context.DmcColors.Add(s));
             context.SaveChanges();
