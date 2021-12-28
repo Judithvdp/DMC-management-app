@@ -25,26 +25,30 @@ namespace DMCProject1.Controllers
         // GET: Pattern/Details/5
         public ActionResult Details(int? id)
         {
-            List<PatternColorCollection> colorCollections = new List<PatternColorCollection>();
+            PatternColorCollection colorCollections = new PatternColorCollection();
 
+            List<PatternColorCollectionItem> items = new List<PatternColorCollectionItem>();
             List<PatternColor> patternColors = new List<PatternColor>();
+            colorCollections.PatternName = db.Patterns.Where(e => e.PatternId == id).First().Name;
             patternColors = db.PatternColors.Where(e => e.PatternId == id).ToList();
             foreach (PatternColor item in patternColors)
             {
-                PatternColorCollection color = new PatternColorCollection();
+                PatternColorCollectionItem color = new PatternColorCollectionItem();
                 color.PCId = item.PCId;
                 color.DmcId = item.DmcId;
-                color.PatternId = item.PatternId;
                 color.NumStitches = item.NumStitches;
 
                 DmcColor dmcColor = db.DmcColors.Where(d => d.DmcId == item.DmcId).FirstOrDefault();
                 if (dmcColor != null)
                 {
                     color.HexaDecimal = dmcColor.HexaDecimal;
+                    color.Name = dmcColor.Name;
                 }
 
-                colorCollections.Add(color);
+                items.Add(color);
             }
+
+            colorCollections.Items = items;
 
             return View(colorCollections);
         }

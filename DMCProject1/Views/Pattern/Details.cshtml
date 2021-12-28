@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DMCProject1.Helpers.PatternColorCollection>
+﻿@model DMCProject1.Helpers.PatternColorCollection
 
 @{
     ViewBag.Title = "Details";
@@ -17,24 +17,24 @@
 
         <dd>
             @* Why doesn't this work?!*@
-           @*@Html.DisplayFor(model => model.Name) *@
+           @Html.DisplayFor(model => model.PatternName)
         </dd>
 
     </dl>
     <table>
         <tr>
             <th width="200">
-                @Html.DisplayNameFor(model => model.DmcId)
+                @Html.DisplayName("DMC Id")
             </th>
             <th width="200">
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayName("Name")
             </th>
             <th width="100">
                 @Html.DisplayName("Color")
             </th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.Items)
         { <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.DmcId)
