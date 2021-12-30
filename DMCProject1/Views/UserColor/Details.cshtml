@@ -1,4 +1,4 @@
-﻿@model DMCProject1.Models.UserColor
+﻿@model DMCProject1.Helpers.ColorCollection
 
 @{
     ViewBag.Title = "Details";
@@ -6,36 +6,38 @@
 
 <h2>Details</h2>
 
-<div>
+
     <h4>UserColor</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.DmcID)
-        </dt>
+    <table>
+        <tr>
+            <th width="200">
+                @Html.DisplayNameFor(model => model.DmcId)
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.DmcID)
-        </dd>
+            <td>
+                @Html.DisplayFor(model => model.DmcId)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UserID)
-        </dt>
+            <td>
+                @Html.DisplayFor(model => model.Amount)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayName("Color")
+            </th>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserID)
-        </dd>
+            <td style="background-color:@Model.HexaDecimal"
+                width="100">
+            </td>
+        </tr>
+    </table>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Amount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
-
-    </dl>
-</div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ColorId }) |
     @Html.ActionLink("Back to List", "Index")

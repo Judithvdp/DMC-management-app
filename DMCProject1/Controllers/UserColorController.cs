@@ -56,7 +56,18 @@ namespace DMCProject1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(userColor);
+            ColorCollection color = new ColorCollection();
+            color.ColorId = userColor.ColorId;
+            color.DmcId = userColor.DmcId;
+            color.Amount = userColor.Amount;
+            color.UserId = userColor.UserId;
+
+            DmcColor dmcColor = db.DmcColors.Where(e => e.DmcId == userColor.DmcId).FirstOrDefault();
+            if (dmcColor != null)
+            {
+                color.HexaDecimal = dmcColor.HexaDecimal;
+            }
+            return View(color);
         }
 
         // GET: UserColors/Create
