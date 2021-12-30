@@ -16,7 +16,6 @@
         </dt>
 
         <dd>
-            @* Why doesn't this work?!*@
            @Html.DisplayFor(model => model.PatternName)
         </dd>
 
@@ -28,6 +27,9 @@
             </th>
             <th width="200">
                 @Html.DisplayName("Name")
+            </th>
+            <th>
+                @Html.DisplayName("Number of Stitches")
             </th>
             <th width="100">
                 @Html.DisplayName("Color")
@@ -41,6 +43,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td width="200">
+                    @Html.DisplayFor(modelItem => item.NumStitches)
                 </td>
                 <td style="background-color:@item.HexaDecimal"
                     width="100">
