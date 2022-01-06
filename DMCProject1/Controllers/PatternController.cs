@@ -120,7 +120,7 @@ namespace DMCProject1.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(patternCollection.pattern).State = EntityState.Modified;
+                db.Entry(db.PatternColors.Find(patternCollection.pattern.PatternId)).State = EntityState.Modified;
                 
                 foreach (PatternColor element in patternCollection.colors)
                 {
@@ -132,8 +132,9 @@ namespace DMCProject1.Controllers
                         db.Entry(db.PatternColors.Find(PCId)).State = EntityState.Modified;
                     }
                     else db.PatternColors.Add(element);
+                    db.SaveChanges();
+
                 }
-                db.SaveChanges();
                 return RedirectToAction("Index");
             }
             

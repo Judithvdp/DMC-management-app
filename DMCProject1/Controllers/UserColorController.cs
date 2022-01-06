@@ -85,6 +85,8 @@ namespace DMCProject1.Controllers
         {
             if (ModelState.IsValid)
             {
+                //TODO: UserId is set to 1
+                userColor.UserId = 1;
                 db.UserColors.Add(userColor);
                 db.SaveChanges();
                 return RedirectToAction("Index");

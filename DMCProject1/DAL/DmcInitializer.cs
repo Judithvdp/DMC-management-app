@@ -54,7 +54,8 @@ namespace DMCProject1.DAL
             {
                 new UserColor{ColorId=1, DmcId=1, UserId=1, Amount=1},
                 new UserColor{ColorId=2, DmcId=310, UserId=1, Amount=2},
-                new UserColor{ColorId=3, DmcId=780, UserId=1, Amount=5}
+                new UserColor{ColorId=3, DmcId=780, UserId=1, Amount=5},
+                new UserColor{ColorId=4, DmcId=700, UserId=1, Amount=2}
             };
 
             UserColors.ForEach(s => context.UserColors.Add(s));

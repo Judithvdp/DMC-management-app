@@ -5,18 +5,14 @@
 }
 
 
-   <h2>Index</h2>
+<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<p>This is the place for comparisons!</p>
+<p>Select a Pattern from the dropdown list and click "Compare". </p>
+<p>In the next window it will show you all the colors you already have, the alternative colors you can use for your pattern and the colors you should buy to be able to complete your pattern.</p>
+
 <table class="table">
-    <tr>
-        <th>
-            @*Html.DisplayNameFor(model => model.Patterns.Name)*@
-        </th>
-        <th></th>
-    </tr>
+
 </table>
     @using (Html.BeginForm("Comparison", "Comparison"))
     {

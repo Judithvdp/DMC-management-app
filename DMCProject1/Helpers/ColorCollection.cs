@@ -13,6 +13,6 @@ namespace DMCProject1.Helpers
         public int UserId { get; set; }
         public int Amount { get; set; }
         public string HexaDecimal { get; set; }
-
+        public string Name { get; set; }
     }
 }

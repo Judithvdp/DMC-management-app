@@ -1,2 +1,134 @@
 ﻿@model DMCProject1.Helpers.Comparison
-<h2> HOi</h2>
+
+<h2>Comparison results:</h2>
+
+<h4>Colors already owned for this pattern:</h4>
+
+<table class="table">
+    <tr>
+        <th width="100">
+            @Html.DisplayName("DmcID")
+        </th>
+        <th width="200">
+            @Html.DisplayName("Color Name")
+        </th>
+        <th width="100">
+            @Html.DisplayName("Color")
+        </th>
+    </tr>
+    <tr>
+        @foreach (var item in Model.Owned)
+        {
+         <tr>
+            <td width="100">
+                @Html.DisplayFor(modelItem => item.DmcId)
+            </td>
+            <td width="200">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td style="background-color:@item.HexaDecimal" width="100">
+                @Html.DisplayFor(modelItem => item.HexaDecimal)
+            </td>
+         </tr>
+        }
+    </tr>
+</table>
+
+<h4>Colors that can be used as alternatives for original colors:</h4>
+@foreach (var item in Model.AlternativeList)
+    {
+<table class="table">
+    <tr>
+        <th width="100">
+            @Html.DisplayName("DmcID original color")
+        </th>
+        <th width="200">
+            @Html.DisplayName("Color Name")
+        </th>
+        <th width="100">
+            @Html.DisplayName("Color")
+        </th>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Original.DmcId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Original.Name)
+        </td>
+        <td style="background-color:@item.Original.HexaDecimal" width="100">
+            @Html.DisplayFor(modelItem => item.Original.HexaDecimal)
+        </td>
+    </tr>
+
+    <th>
+        @Html.DisplayName("Alternative Colors:")
+    </th>
+    <tr>
+        @foreach (var x in item.Alternatives)
+        {
+        <tr>
+
+            <th>
+                @Html.DisplayName("DmcID")
+            </th>
+            <th>
+                @Html.DisplayName("Color Name")
+            </th>
+            <th>
+                @Html.DisplayName("Color")
+            </th>
+        </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => x.DmcId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => x.Name)
+            </td>
+            <td style="background-color:@x.HexaDecimal" width="100">
+                @Html.DisplayFor(modelItem => x.HexaDecimal)
+            </td>
+            @* TODO: Add amount available
+                    <td>
+                    @Html.DisplayFor(modelItem => x.Amount)
+                </td>
+            *@
+        </tr>
+        <tr rowspan="3">
+                
+        </tr>
+    }
+    </table>
+    }
+
+<h4>These are the colors that are not owned and could be purchased for the pattern:</h4>
+<table class="table">
+    <tr>
+        <th width="100">
+            @Html.DisplayName("DmcID")
+        </th>
+        <th width="200">
+            @Html.DisplayName("Color Name")
+        </th>
+        <th width="100">
+            @Html.DisplayName("Color")
+        </th>
+    </tr>
+    <tr>
+        @foreach (var item in Model.NotOwned)
+        {
+         <tr>
+            <td width="100">
+                @Html.DisplayFor(modelItem => item.DmcId)
+            </td>
+            <td width="200">
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td style="background-color:@item.HexaDecimal" width="100">
+                @Html.DisplayFor(modelItem => item.HexaDecimal)
+            </td>
+         </tr>
+        }
+    </tr>
+</table>
