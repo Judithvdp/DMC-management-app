@@ -3,29 +3,28 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>DMC </h1>
+    <p class="lead">Hi! This is an DMC collection .... where you are able to keep track of your DMC thread colors and the amount of thread you have.</p>
+    <p> You are also able to add patterns and compare your color collection to the pattern you want to make.</p>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h2>Owned Colors</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            Here you can add, delete and edit all the colors you have in your collection. You can see the colors of the thread you have and how much you have available!
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p><a class="btn btn-default" @Html.ActionLink("User Colors", "Index", "UserColor") </p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h2>Patterns</h2>
+        <p>In Patterns you can add new patterns to your collection! It is also possible to edit or delete patterns you added before.</p>
+        <p><a class="btn btn-default" @Html.ActionLink("Patterns", "Index", "Pattern")</p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Comparisons</h2>
+        <p>With comparisons you are able to compare a patterns you added to the colors you have. In this way you can quickly see which colors you already own for the pattern!</p>
+        <p>It is also possible to see which alternative colors you can use for your pattern and which colors you should buy to be able to complete your pattern.</p>
+        <p><a class="btn btn-default" @Html.ActionLink("Comparison", "Index", "Comparison")</p>
     </div>
 </div>
