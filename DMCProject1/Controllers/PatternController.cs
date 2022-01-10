@@ -106,9 +106,19 @@ namespace DMCProject1.Controllers
             return View(patternCollection);
         }
         [HttpPost]
-        public ActionResult AddColor()
+        public ActionResult AddColor(int patternId)
         {
-            return PartialView("ColorRow", new PatternColor());
+            PatternColor newPatternColor = new PatternColor
+            {
+                DmcId = 0,
+                NumStitches = 0,
+                PatternId = patternId,
+            };
+
+            db.PatternColors.Add(newPatternColor);
+            db.SaveChanges();
+
+            return PartialView("ColorRow", newPatternColor);
         }
 
         // POST: Pattern/Edit/5
@@ -120,8 +130,8 @@ namespace DMCProject1.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(db.PatternColors.Find(patternCollection.pattern.PatternId)).State = EntityState.Modified;
-                
+                db.Entry(db.Patterns.Find(patternCollection.pattern.PatternId)).State = EntityState.Modified;
+
                 foreach (PatternColor element in patternCollection.colors)
                 {
                     int PCId = element.PCId;
@@ -129,14 +139,28 @@ namespace DMCProject1.Controllers
                     element.PatternId = Pid;
                     if (db.PatternColors.Find(PCId) != null)
                     {
+                        db.PatternColors.Find(PCId).DmcId = element.DmcId;
+                        db.PatternColors.Find(PCId).NumStitches = element.NumStitches;
                         db.Entry(db.PatternColors.Find(PCId)).State = EntityState.Modified;
                     }
-                    else db.PatternColors.Add(element);
-                    db.SaveChanges();
-
+                    //else db.PatternColors.Add(element);
                 }
-                return RedirectToAction("Index");
             }
+
+            db.SaveChanges();
+
+            List<PatternColor> existing = new List<PatternColor>();
+            existing = db.PatternColors.Where(e => e.PatternId == patternCollection.pattern.PatternId).ToList();
+            foreach (PatternColor item in existing)
+            {
+                if (patternCollection.colors.Where(e => e.PCId == item.PCId).Count() == 0 ||
+                    item.DmcId == 0 ||
+                    item.NumStitches == 0)
+                {
+                    db.PatternColors.Remove(item);
+                }
+            }
+            db.SaveChanges();
             
             return RedirectToAction("Index");
         }

@@ -143,6 +143,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AlternativeContainer.cs" />
     <Compile Include="Helpers\ColorCollection.cs" />
     <Compile Include="Helpers\Comparison.cs" />
     <Compile Include="Helpers\ComparisonIndexViewmodel.cs" />
@@ -216,6 +217,7 @@
     <Content Include="Views\PatternColor\Delete.cshtml" />
     <Content Include="Views\Comparison\Index.cshtml" />
     <Content Include="Views\Comparison\Comparison.cshtml" />
+    <Content Include="Views\Pattern\DeleteColorRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
