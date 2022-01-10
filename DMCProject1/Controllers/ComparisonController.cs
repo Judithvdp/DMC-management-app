@@ -108,9 +108,8 @@ namespace DMCProject1.Controllers
             return labColor;
         }
 
-        public ActionResult Comparison()
+        public ActionResult Comparison(int PatternId)
         {
-            //int PatternId = 1;
             Comparison comparison = new Comparison();
             // TODO: change list<userColor> to list<DmcColor> for userColors and owned
             List<PatternColor> patternColors = new List<PatternColor>();
@@ -120,8 +119,7 @@ namespace DMCProject1.Controllers
             List<AlternativeContainer> alternatives = new List<AlternativeContainer>();
             List<DmcColor> dmcColors = new List<DmcColor>();
 
-            // PatternId is set to 1
-            patternColors = db.PatternColors.Where(e => e.PatternId == 1).ToList();
+            patternColors = db.PatternColors.Where(e => e.PatternId == PatternId).ToList();
             // UserId is set to 1
             userColors = db.UserColors.Where(e => e.UserId == 1).ToList();
 
