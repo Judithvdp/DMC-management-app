@@ -106,7 +106,7 @@ namespace DMCProject1.Controllers
         }
 
         // POST: Pattern/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteColorRow")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

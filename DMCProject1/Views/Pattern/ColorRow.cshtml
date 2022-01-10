@@ -3,27 +3,30 @@
 
 @using (Html.BeginCollectionItem("colors"))
 {
-<tr>
-    <td>
-        @Html.HiddenFor(m => m.PCId)
-        @Html.TextBoxFor(m => m.DmcId)
-    </td>
-    <td>
-        @Html.TextBoxFor(m => m.NumStitches)
-    </td>
-    @*<td style="background-color:@item.HexaDecimal">*@
-<td>
-        <button type="button" id="removeItem">Delete</button>
-    </td>
+    <tr>
+        <td>
+            @Html.HiddenFor(m => m.PCId)
+            @Html.DisplayFor(m => m.PCId)
+            @Html.TextBoxFor(m => m.DmcId)
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.NumStitches)
+        </td>
+        @*<td style="background-color:@item.HexaDecimal">*@
+        <td>
+            @*TODO: make working delete button*@
+            <button type="button" id="removeItem_@Model.PCId">Delete</button>
+        </td>
 
 
 
-</tr>
+    </tr>
 
     <script>
-        $('body').on('click', '*[data-action="removeItem"]', function (e) {
-            $(this).closest('tr').remove()
-        })
+        $("#removeItem_@Model.PCId").on('click', function (e) {
+            $(this).closest('tr').remove();
+            console.log(e);
+        });
            @* $('body').on("click", '*[data-action="removeItem"]', function (e) {
                 e.stopPropagation();
                 var btn = $(this);
@@ -41,5 +44,5 @@
                 }
 
             });*@
-        </script>
+    </script>
 }
