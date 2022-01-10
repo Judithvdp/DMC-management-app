@@ -38,14 +38,6 @@ namespace DMCProject1.DAL
 
                 DmcColors.Add(new DmcColor { DmcId = dmcId, Name = name, HexaDecimal = hexadecimal });
             }
-            /*{
-                
-                
-                /*new DmcColor{DmcId=1, Name="red", HexaDecimal="#FF0000"},
-                new DmcColor{DmcId=310,Name="black", HexaDecimal="#000000"},
-                new DmcColor{DmcId=100,Name="Pink", HexaDecimal="#FFC0CB"},
-                new DmcColor{DmcId=780,Name="blue", HexaDecimal="#0000FF"}
-            };*/
 
             DmcColors.ForEach(s => context.DmcColors.Add(s));
             context.SaveChanges();
