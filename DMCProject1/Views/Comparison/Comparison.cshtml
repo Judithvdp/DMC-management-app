@@ -27,7 +27,6 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td style="background-color:@item.HexaDecimal" width="100">
-                @Html.DisplayFor(modelItem => item.HexaDecimal)
             </td>
          </tr>
         }
@@ -57,7 +56,6 @@
             @Html.DisplayFor(modelItem => item.Original.Name)
         </td>
         <td style="background-color:@item.Original.HexaDecimal" width="100">
-            @Html.DisplayFor(modelItem => item.Original.HexaDecimal)
         </td>
     </tr>
 
@@ -87,7 +85,6 @@
                 @Html.DisplayFor(modelItem => x.Name)
             </td>
             <td style="background-color:@x.HexaDecimal" width="100">
-                @Html.DisplayFor(modelItem => x.HexaDecimal)
             </td>
             @* TODO: Add amount available
                     <td>
@@ -95,9 +92,12 @@
                 </td>
             *@
         </tr>
-        <tr rowspan="3">
-                
-        </tr>
+
+    <tr>
+        <td colspan="6">
+            ________________________________________________________________________________________________________________________________________________
+        </td>
+    </tr>
     }
     </table>
     }
@@ -126,7 +126,6 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td style="background-color:@item.HexaDecimal" width="100">
-                @Html.DisplayFor(modelItem => item.HexaDecimal)
             </td>
          </tr>
         }

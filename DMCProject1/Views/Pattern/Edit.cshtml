@@ -6,6 +6,8 @@
 
 <h2>Edit</h2>
 
+@*TODO: change edit so that colors already in the pattern can be changed. Now changes are not saved, only new colors.*@
+
 @using (Html.BeginForm("Edit", "Pattern", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -29,7 +31,7 @@
             <tbody>
                 <tr>
                     <td>
-                        @Html.Label("DMC ID")
+                        @Html.Label("Dmc Id")
                     </td>
                     <td>
                         @Html.Label("Number of Stitches")
@@ -38,7 +40,7 @@
                         @foreach (var color in Model.colors)
                         {
                             
-                    @Html.Partial("ColorRow", color)
+                            @Html.Partial("ColorRow", color)
                             
                         }
                 </tbody>
@@ -51,7 +53,7 @@
         $("#addColor").on("click", function () {
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("AddColor", "Pattern")',
+                url: '@Url.Action("AddColor", "Pattern", new { patternId = Model.pattern.PatternId })',
                 success: function (partialView) {
                     $('#colors> tbody:last-child').append("<tr>" + partialView + "</tr>");
                 }

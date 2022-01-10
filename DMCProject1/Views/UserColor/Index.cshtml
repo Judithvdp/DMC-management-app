@@ -32,10 +32,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Amount)
         </td>
-        @*how to add object from foreign key model here?*@
         <td style="background-color:@item.HexaDecimal">
-            @Html.DisplayFor(modelItem => item.HexaDecimal)
-
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ColorId }) |
