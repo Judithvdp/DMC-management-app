@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DMCProject1.DAL;
@@ -17,38 +16,9 @@ namespace DMCProject1.Controllers
         private DmcContext db = new DmcContext();
 
         // GET: DmcColor
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index()
         {
-            ViewBag.DMCSortParm = sortOrder == "DMC" ? "DMC_desc" : "DMC";
-            ViewBag.NameSortParm = sortOrder == "Name" ? "name_desc" : "Name";
-            ViewBag.HexaSortParm = sortOrder == "Hexa" ? "hexa_desc" : "Hexa";
-            var dmcColors = from s in db.DmcColors
-                            select s;
-            switch (sortOrder)
-            {
-                case "DMC_desc":
-                    dmcColors = dmcColors.OrderByDescending(s => s.DmcId);
-                    break;
-                case "DMC":
-                    dmcColors = dmcColors.OrderBy(s => s.DmcId);
-                    break;
-                case "Name":
-                    dmcColors = dmcColors.OrderBy(s => s.Name);
-                    break;
-                case "name_desc":
-                    dmcColors = dmcColors.OrderByDescending(s => s.Name);
-                    break;
-                case "Hexa":
-                    dmcColors = dmcColors.OrderBy(s => s.DbId);
-                    break;
-                case "hexa_desc":
-                    dmcColors = dmcColors.OrderByDescending(s => s.DbId);
-                    break;
-                default:
-                    dmcColors = dmcColors.OrderBy(s => s.DbId);
-                    break;
-            }
-            return View(dmcColors.ToList());
+            return View(db.DmcColors.ToList());
         }
 
         // GET: DmcColor/Details/5
@@ -154,7 +124,5 @@ namespace DMCProject1.Controllers
             }
             base.Dispose(disposing);
         }
-
     }
-    
 }

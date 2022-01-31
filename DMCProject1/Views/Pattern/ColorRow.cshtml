@@ -6,15 +6,15 @@
     <tr>
         <td>
             @Html.HiddenFor(m => m.PCId)
-            @Html.HiddenFor(m => m.PCId)
+            @Html.DisplayFor(m => m.PCId)
             @Html.TextBoxFor(m => m.DmcId)
         </td>
         <td>
             @Html.TextBoxFor(m => m.NumStitches)
         </td>
         @*<td style="background-color:@item.HexaDecimal">*@
-           
         <td>
+            @*TODO: make working delete button*@
             <button type="button" id="removeItem_@Model.PCId">Delete</button>
         </td>
 
@@ -27,5 +27,22 @@
             $(this).closest('tr').remove();
             console.log(e);
         });
+           @* $('body').on("click", '*[data-action="removeItem"]', function (e) {
+                e.stopPropagation();
+                var btn = $(this);
+                var row = btn.closest('tr');
+                var firstCell = $(row.find('td')[0]);
+                var checkBox = firstCell.find('*[data-is-deleted]');
+                var checkBoxVal = checkBox.val();
+
+                if (checkBoxVal === 'False' || checkBox.val() === 'false') {
+                    checkBox.val('true');
+                    row.find('td').find('input, textarea, select').attr('readonly', 'readonly');
+                } else {
+                    checkBox.val('false');
+                    row.find('td').find('input, textarea, select').attr("readonly", false);
+                }
+
+            });*@
     </script>
 }
