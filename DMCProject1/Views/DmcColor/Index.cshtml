@@ -11,13 +11,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.DmcId)
+            @Html.ActionLink("DmcID", "Index", new { sortOrder = ViewBag.DMCSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.DisplayName("Color")
+            @Html.ActionLink("Color", "Index", new { sortOrder = ViewBag.HexaSortParm })
         </th>
     </tr>
 
