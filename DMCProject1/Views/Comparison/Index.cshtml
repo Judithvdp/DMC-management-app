@@ -14,15 +14,19 @@
 <table class="table">
 
 </table>
-    @using (Html.BeginForm("Comparison", "Comparison"))
+    @using (Html.BeginForm("Comparison", "Comparison", FormMethod.Post, new { id = "Comparison", name = "Comparison" }))
     {
         @Html.AntiForgeryToken()
 
-        @Html.DropDownListFor(m => m.PatternId, new SelectList(Model.Patterns, "PatternId", "Name"), "Select Pattern")
-
-
-        <input type="submit" value="Compare" onclick="window.location.href=https://localhost:44339/Comparison/Comparison"/>  
+        @Html.DropDownListFor(m => m.PatternId, new SelectList(Model.Patterns, "PatternId", "Name"), "Select Pattern",
+            new {onchange = "SelectedIndexChanged()"})
     }
 
 
-    
+ <script>
+     function SelectedIndexChanged() {
+         //Form post  
+         document.Comparison.submit();
+     }
+
+ </script>   
