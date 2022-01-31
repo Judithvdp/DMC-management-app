@@ -87,7 +87,13 @@ namespace DMCProject1.Controllers
             {
                 //TODO: UserId is set to 1
                 userColor.UserId = 1;
-                db.UserColors.Add(userColor);
+                DmcColor dmcColor = db.DmcColors.Where(e => e.DmcId == userColor.DmcId).FirstOrDefault();
+                if (dmcColor == null)
+                {
+                    //TODO: make proper error page 
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                else db.UserColors.Add(userColor);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
