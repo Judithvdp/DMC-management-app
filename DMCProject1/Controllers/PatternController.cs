@@ -98,7 +98,26 @@ namespace DMCProject1.Controllers
             }
             PatternCollection patternCollection = new PatternCollection();
             patternCollection.pattern = db.Patterns.Find(id);
-            patternCollection.colors = db.PatternColors.Where(x => x.PatternId == id).ToList();
+
+            List<PatternColorCollectionItem> collectionItems = new List<PatternColorCollectionItem>();
+            List<PatternColor> patternColors = new List<PatternColor>();
+            patternColors = db.PatternColors.Where(x => x.PatternId == id).ToList();
+            
+            foreach(PatternColor item in patternColors)
+            {
+                PatternColorCollectionItem color = new PatternColorCollectionItem();
+                color.DmcId = item.DmcId;
+                color.PCId = item.PCId;
+                color.NumStitches = item.NumStitches;
+                DmcColor dmcColor = new DmcColor();
+                dmcColor = db.DmcColors.Where(x => x.DmcId == item.DmcId).FirstOrDefault();
+                color.HexaDecimal = dmcColor == null ? "" : dmcColor.HexaDecimal;
+                
+                collectionItems.Add(color);
+            }
+
+            patternCollection.colors = collectionItems;
+
             if (patternCollection == null)
             {
                 return HttpNotFound();
@@ -118,7 +137,20 @@ namespace DMCProject1.Controllers
             db.PatternColors.Add(newPatternColor);
             db.SaveChanges();
 
-            return PartialView("ColorRow", newPatternColor);
+            DmcColor dmcColor = db.DmcColors.Where(d => d.DmcId == newPatternColor.DmcId).FirstOrDefault();
+            string hexa = dmcColor == null ? "" : dmcColor.HexaDecimal;
+            string name = dmcColor == null ? "" : dmcColor.Name;
+
+            PatternColorCollectionItem item = new PatternColorCollectionItem()
+            {
+                DmcId = newPatternColor.DmcId,
+                HexaDecimal = hexa,
+                Name = name,
+                NumStitches = newPatternColor.NumStitches,
+                PCId = newPatternColor.PCId
+            };
+
+            return PartialView("ColorRow", item);
         }
 
         // POST: Pattern/Edit/5
@@ -132,11 +164,11 @@ namespace DMCProject1.Controllers
             {
                 db.Entry(db.Patterns.Find(patternCollection.pattern.PatternId)).State = EntityState.Modified;
 
-                foreach (PatternColor element in patternCollection.colors)
+                foreach (PatternColorCollectionItem element in patternCollection.colors)
                 {
                     int PCId = element.PCId;
                     int Pid = patternCollection.pattern.PatternId;
-                    element.PatternId = Pid;
+                    //element.PatternId = Pid;
                     if (db.PatternColors.Find(PCId) != null)
                     {
                         db.PatternColors.Find(PCId).DmcId = element.DmcId;
