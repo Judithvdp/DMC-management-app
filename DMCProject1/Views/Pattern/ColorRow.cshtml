@@ -1,5 +1,5 @@
 ﻿
-@model DMCProject1.Models.PatternColor
+@model DMCProject1.Helpers.PatternColorCollectionItem
 
 @using (Html.BeginCollectionItem("colors"))
 {
@@ -7,12 +7,12 @@
         <td>
             @Html.HiddenFor(m => m.PCId)
             @Html.HiddenFor(m => m.PCId)
-            @Html.TextBoxFor(m => m.DmcId)
+            @Html.TextBoxFor(m => m.DmcId, new { id = "textBoxDmcId_" + @Model.PCId})
         </td>
         <td>
             @Html.TextBoxFor(m => m.NumStitches)
         </td>
-        @*<td style="background-color:@item.HexaDecimal">*@
+        <td id="BG-Color_@Model.PCId" style="background-color:@Model.HexaDecimal">
            
         <td>
             <button type="button" id="removeItem_@Model.PCId">Delete</button>
@@ -27,5 +27,17 @@
             $(this).closest('tr').remove();
             console.log(e);
         });
+
+
+        $("#textBoxDmcId_@Model.PCId").on('input', function (e) {
+            $.ajax({
+                type: "POST",
+                url: '/DmcColor/GetHexadecimal?DmcId=' + e.target.value,
+                success: function (hexadecimal) {
+                    $("#BG-Color_@Model.PCId")[0].style.backgroundColor = hexadecimal;
+                }
+            });
+        });
+
     </script>
 }

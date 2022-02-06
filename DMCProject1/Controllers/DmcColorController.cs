@@ -120,6 +120,17 @@ namespace DMCProject1.Controllers
             return View(dmcColor);
         }
 
+        public string GetHexadecimal(int DmcId)
+        {
+            
+            DmcColor dmcColor = db.DmcColors.Where(d => d.DmcId == DmcId).FirstOrDefault();
+            if (dmcColor == null)
+            {
+                return "X";
+            }
+            else return dmcColor.HexaDecimal;
+        }
+
         // GET: DmcColor/Delete/5
         public ActionResult Delete(int? id)
         {

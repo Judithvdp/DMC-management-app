@@ -150,6 +150,7 @@
     <Compile Include="Helpers\PatternCollection.cs" />
     <Compile Include="Helpers\PatternColorCollection.cs" />
     <Compile Include="Helpers\PatternColorCollectionItem.cs" />
+    <Compile Include="Models\AbstractColor.cs" />
     <Compile Include="Models\DmcColor.cs" />
     <Compile Include="Models\ErrorViewModel.cs" />
     <Compile Include="Models\Pattern.cs" />
@@ -217,7 +218,6 @@
     <Content Include="Views\PatternColor\Delete.cshtml" />
     <Content Include="Views\Comparison\Index.cshtml" />
     <Content Include="Views\Comparison\Comparison.cshtml" />
-    <Content Include="Views\Pattern\DeleteColorRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
