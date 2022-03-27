@@ -22,78 +22,11 @@ namespace DMCProject1.Controllers
             return View(viewmodel);
         }
 
-        // GET: Comparison/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Comparison/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Comparison/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Comparison/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Comparison/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Comparison/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Comparison/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+        /// <summary>
+        /// converts hexadecimal color string to a LabColor object representing the same color
+        /// </summary>
+        /// <param name="hexadecimal">hexadecimal color string e.g. #000000 for black</param>
+        /// <returns>LabColor object representing the same color as the hexadecimal color string</returns>
         private LabColor HexToLab(string hexadecimal)
         {
             Color color = ColorTranslator.FromHtml(hexadecimal);
@@ -107,11 +40,18 @@ namespace DMCProject1.Controllers
 
             return labColor;
         }
-
+        /// <summary>
+        /// Compares the color list of the user to the color list of a pattern and produces a list of colors that are available, a list of colors with alternative colors for the pattern and a list of colors that are unavailable.
+        /// Alternative colors are colors that have a difference of 12 or less between them and the original color in CIELAB space.
+        /// 
+        /// TODO: Add user support. Now only uses usercolors of userid 1.
+        /// </summary>
+        /// <param name="PatternId"> Id of pattern that is compared to the user color list</param>
+        /// <returns>A Comparison object that contains three lists: Owned, AlternativeList and NotOwned</returns>
         public ActionResult Comparison(int PatternId)
         {
             Comparison comparison = new Comparison();
-            // TODO: change list<userColor> to list<DmcColor> for userColors and owned
+            // TODO?: change list<userColor> to list<DmcColor> for userColors and owned
             List<PatternColor> patternColors = new List<PatternColor>();
             List<UserColor> userColors = new List<UserColor>();
             List<DmcColor> owned = new List<DmcColor>();
@@ -119,21 +59,25 @@ namespace DMCProject1.Controllers
             List<AlternativeContainer> alternatives = new List<AlternativeContainer>();
             List<DmcColor> dmcColors = new List<DmcColor>();
 
+            // retrieve all colors for this pattern
             patternColors = db.PatternColors.Where(e => e.PatternId == PatternId).ToList();
-            // UserId is set to 1
+            // retrieve all user colors for this user
+            // TODO: Add user support. Now UserId is set to 1
             userColors = db.UserColors.Where(e => e.UserId == 1).ToList();
 
             dmcColors = db.DmcColors.ToList();
 
+            //Check what to do for each patterncolor
             foreach (PatternColor patternColor in patternColors)
             {
                 if (userColors.Where(e => e.DmcId == patternColor.DmcId).Count() > 0)
                 {
-                    // TODO:
+                    // if the user has this color, it is added to the list of owned colors.
                     owned.Add(dmcColors.Where(e => e.DmcId == patternColor.DmcId).First());
                 }
                 else if (userColors.Where(e => e.DmcId == patternColor.DmcId).Count() == 0)
                 {
+                    // if the user does not have the color, we need to check if they have a color that can be used as an alternative.
                     AlternativeContainer alternativeContainer = new AlternativeContainer();
                     alternativeContainer.Alternatives = new List<ColorCollection>();
 
@@ -143,10 +87,13 @@ namespace DMCProject1.Controllers
                     var dmcColor = alternativeContainer.Original;
                     var hexadecimal = dmcColor.HexaDecimal;
 
+                    // convert hexadecimal color to labspace.
                     var labColor1 = HexToLab(hexadecimal);
 
+                    // store the difference between the pattern color and each of the usercolors in a dictionary, indexed by DMC Id.
                     Dictionary<int, double> differenceDict = new Dictionary<int, double>();
 
+                    // loop over all user colors and add their distance in CIELAB space to the dictionary if the difference is less than 12.
                     foreach (UserColor userColor in userColors)
                     {
                         var dmc = dmcColors.Where(e => e.DmcId == userColor.DmcId).First();
@@ -161,14 +108,17 @@ namespace DMCProject1.Controllers
                         }
                     }
 
+                    // if no user colors are close enough to the patterncolor add the patterncolor to the notOwned list
                     if (differenceDict.Count() < 1)
                     {
                         notOwned.Add(dmcColors.Where(e => e.DmcId == patternColor.DmcId).First());
                     }
                     else
                     {
+                        // order the dictionary by ascending difference. So the most similar color is on top.
                         var orderedDictionary = differenceDict.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
 
+                        // show at most the top 5 most similar alternative colors
                         for (int i = 0; i < Math.Min(5, orderedDictionary.Count); i++)
                         {
                             int dmcId = orderedDictionary.ElementAt(i).Key;
