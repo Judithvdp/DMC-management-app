@@ -22,3 +22,7 @@ The built-in pattern comparison functionality compares your color collection to 
 * Add users
 * Add login page
 * Make the webapp more visually appealing
+
+
+### ERD:
+![image](https://user-images.githubusercontent.com/80320407/160589003-e9effc19-66dc-4962-99dd-1ff53229b2e0.png)
